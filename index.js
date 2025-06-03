@@ -20,7 +20,15 @@ function cesarEncrypt(text) {
 }
 
 function cesarDecrypt(text) {
-  return cesarEncrypt(text, 26 - (FIXED_SHIFT % 26));
+  return text.split('').map(char => {
+    if(/[a-z]/.test(char)) {
+      return String.fromCharCode((char.charCodeAt(0) - 97 - FIXED_SHIFT + 26) % 26 + 97);
+    }
+    if(/[A-Z]/.test(char)) {
+      return String.fromCharCode((char.charCodeAt(0) - 65 - FIXED_SHIFT + 26) % 26 + 65);
+    }
+    return char;
+  }).join('');
 }
 
 // Ruta para encriptar
